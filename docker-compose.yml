@@ -1,0 +1,10 @@
+version: '2'
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      POSTGRES_USER: zallpyadm
+      POSTGRES_PASSWORD: zallpy2019
+      POSTGRES_DB: zallpy_project_management
+    ports:
+      - '5432:5432'
