@@ -23,11 +23,13 @@ class User extends Model {
   }
 
   static associate(models) {
+    /*
     this.belongsToMany(models.Project, {
       through: 'Assignment',
       foreignKey: 'user_id',
       as: 'projects',
     });
+  */
     this.hasMany(models.Assignment, { foreignKey: 'user_id', sourceKey: 'id' });
   }
 

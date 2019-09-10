@@ -13,6 +13,7 @@ module.exports = {
           model: 'users',
           key: 'id',
         },
+        allowNull: false,
         onDelete: 'CASCADE',
       },
       project_id: {
@@ -21,6 +22,7 @@ module.exports = {
           model: 'projects',
           key: 'id',
         },
+        allowNull: false,
         onDelete: 'CASCADE',
       },
       role_id: {
@@ -29,6 +31,7 @@ module.exports = {
           model: 'roles',
           key: 'id',
         },
+        allowNull: false,
         onDelete: 'SET NULL',
       },
       created_at: {

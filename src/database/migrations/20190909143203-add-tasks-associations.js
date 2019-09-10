@@ -6,6 +6,7 @@ module.exports = {
         model: 'assignments',
         key: 'id',
       },
+      allowNull: false,
       onDelete: 'CASCADE',
     });
   },

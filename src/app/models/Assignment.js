@@ -19,7 +19,7 @@ class Assignment extends Model {
       as: 'projects',
     });
     this.belongsTo(models.Role, { foreignKey: 'role_id', as: 'roles' });
-    this.hasMany(models.Task, { as: 'tasks' });
+    this.hasMany(models.Task, { foreignKey: 'assignment_id', sourceKey: 'id' });
   }
 }
 

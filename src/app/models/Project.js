@@ -16,11 +16,13 @@ class Project extends Model {
   }
 
   static associate(models) {
+    /*
     this.belongsToMany(models.User, {
       through: 'Assignment',
       foreignKey: 'project_id',
       as: 'users',
     });
+    */
     this.hasMany(models.Assignment, {
       foreignKey: 'project_id',
       sourceKey: 'id',
