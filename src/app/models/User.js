@@ -26,8 +26,9 @@ class User extends Model {
     this.belongsToMany(models.Project, {
       through: 'Assignment',
       foreignKey: 'user_id',
-      as: 'user',
+      as: 'projects',
     });
+    this.hasMany(models.Assignment, { foreignKey: 'user_id', sourceKey: 'id' });
   }
 
   checkPassword(password) {

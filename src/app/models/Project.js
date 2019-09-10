@@ -19,7 +19,11 @@ class Project extends Model {
     this.belongsToMany(models.User, {
       through: 'Assignment',
       foreignKey: 'project_id',
-      as: 'project',
+      as: 'users',
+    });
+    this.hasMany(models.Assignment, {
+      foreignKey: 'project_id',
+      sourceKey: 'id',
     });
   }
 }

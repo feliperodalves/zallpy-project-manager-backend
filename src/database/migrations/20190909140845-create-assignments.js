@@ -10,24 +10,24 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'users', // name of Target model
-          key: 'id', // key in Target model that we're referencing
+          model: 'users',
+          key: 'id',
         },
         onDelete: 'CASCADE',
       },
       project_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'projects', // name of Target model
-          key: 'id', // key in Target model that we're referencing
+          model: 'projects',
+          key: 'id',
         },
         onDelete: 'CASCADE',
       },
       role_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'roles', // name of Target model
-          key: 'id', // key in Target model that we're referencing
+          model: 'roles',
+          key: 'id',
         },
         onDelete: 'SET NULL',
       },

@@ -18,7 +18,10 @@ class Task extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Role, { foreignKey: 'provider_id', as: 'provider' });
+    this.belongsTo(models.Assignment, {
+      foreignKey: 'assignment_id',
+      as: 'assign',
+    });
   }
 }
 
