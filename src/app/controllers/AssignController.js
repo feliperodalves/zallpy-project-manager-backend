@@ -1,3 +1,4 @@
+import * as Yup from 'yup';
 import Project from '../models/Project';
 import Assignment from '../models/Assignment';
 import User from '../models/User';
@@ -6,8 +7,7 @@ import Role from '../models/Role';
 class AssignController {
   async index(req, res) {
     const assignments = await Assignment.findAll({
-      atributes: ['role_id'],
-      where: { project_id: req.params.projectId },
+      where: { user_id: req.userId },
       include: [
         {
           model: User,
@@ -25,11 +25,22 @@ class AssignController {
           attributes: ['name'],
         },
       ],
+      attributes: ['id'],
     });
     return res.json(assignments);
   }
 
   async store(req, res) {
+    const schema = Yup.object().shape({
+      projectId: Yup.number().required(),
+      userId: Yup.number().required(),
+      roleId: Yup.number().required(),
+    });
+
+    if (!(await schema.isValid(req.params))) {
+      return res.status(400).json({ error: 'Validation fails.' });
+    }
+
     const { projectId, userId, roleId } = req.params;
 
     const assignmentAdm = await Assignment.findOne({
@@ -88,6 +99,15 @@ class AssignController {
   }
 
   async update(req, res) {
+    const schema = Yup.object().shape({
+      assignId: Yup.number().required(),
+      roleId: Yup.number().required(),
+    });
+
+    if (!(await schema.isValid(req.params))) {
+      return res.status(400).json({ error: 'Validation fails.' });
+    }
+
     const { assignId, roleId } = req.params;
 
     const assignment = await Assignment.findOne({
@@ -123,6 +143,14 @@ class AssignController {
   }
 
   async delete(req, res) {
+    const schema = Yup.object().shape({
+      assignId: Yup.number().required(),
+    });
+
+    if (!(await schema.isValid(req.params))) {
+      return res.status(400).json({ error: 'Validation fails.' });
+    }
+
     const { assignId } = req.params;
 
     const assignment = await Assignment.findOne({

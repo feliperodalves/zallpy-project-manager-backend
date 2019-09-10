@@ -7,7 +7,6 @@ import Role from '../models/Role';
 class ProjectController {
   async index(req, res) {
     const projects = await Project.findAll({
-      attributes: ['name', 'description'],
       include: [
         {
           model: Assignment,
@@ -29,6 +28,7 @@ class ProjectController {
           },
         },
       ],
+      attributes: ['name', 'description'],
     });
 
     return res.json(projects);

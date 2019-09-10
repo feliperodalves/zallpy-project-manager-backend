@@ -22,7 +22,7 @@ routes.post('/projects', ProjectController.store);
 routes.put('/projects/:projectId', ProjectController.update);
 routes.delete('/projects/:projectId', ProjectController.delete);
 
-routes.get('/projects/:projectId/assign', AssignController.index);
+routes.get('/assign', AssignController.index);
 routes.post(
   '/projects/:projectId/assign/:userId/:roleId',
   AssignController.store
@@ -30,7 +30,7 @@ routes.post(
 routes.put('/assign/:assignId/:roleId', AssignController.update);
 routes.delete('/assign/:assignId', AssignController.delete);
 
-routes.get('/projects/:projectId/tasks', TaskController.index);
+routes.get('/tasks', TaskController.index);
 routes.post('/projects/:projectId/tasks', TaskController.store);
 routes.put('/tasks/:taskId', TaskController.update);
 routes.delete('/tasks/:taskId', TaskController.delete);
