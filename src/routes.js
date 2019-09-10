@@ -23,13 +23,16 @@ routes.put('/projects/:projectId', ProjectController.update);
 routes.delete('/projects/:projectId', ProjectController.delete);
 
 routes.get('/projects/:projectId/assign', AssignController.index);
-routes.post('/projects/:projectId/assign', AssignController.store);
-routes.put('/projects/:projectId/assign/:assignId', AssignController.update);
-routes.delete('/projects/:projectId/assign/:assignId', AssignController.delete);
+routes.post(
+  '/projects/:projectId/assign/:userId/:roleId',
+  AssignController.store
+);
+routes.put('/assign/:assignId/:roleId', AssignController.update);
+routes.delete('/assign/:assignId', AssignController.delete);
 
 routes.get('/projects/:projectId/tasks', TaskController.index);
 routes.post('/projects/:projectId/tasks', TaskController.store);
-routes.put('/projects/:projectId/tasks/:taskId', TaskController.update);
-routes.delete('/projects/:projectId/tasks/:taskId', TaskController.delete);
+routes.put('/tasks/:taskId', TaskController.update);
+routes.delete('/tasks/:taskId', TaskController.delete);
 
 export default routes;
