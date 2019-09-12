@@ -76,7 +76,9 @@ class TaskController {
       title: Yup.string(),
       description: Yup.string(),
       date: Yup.date(),
-      time: Yup.date(),
+      time: Yup.string().test('a', 'b', value => {
+        return Moment(value, 'HH:mm').isValid();
+      }),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -116,7 +118,7 @@ class TaskController {
       taskId: Yup.number().required(),
     });
 
-    if (!(await schema.isValid(req.body))) {
+    if (!(await schema.isValid(req.params))) {
       return res.status(400).json({ error: 'Validation fails.' });
     }
 
