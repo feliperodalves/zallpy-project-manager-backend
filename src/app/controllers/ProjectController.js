@@ -1,8 +1,10 @@
 import * as Yup from 'yup';
+import Sequelize from 'sequelize';
 import Project from '../models/Project';
 import Assignment from '../models/Assignment';
 import User from '../models/User';
 import Role from '../models/Role';
+import Task from '../models/Task';
 
 class ProjectController {
   async index(req, res) {
@@ -12,23 +14,70 @@ class ProjectController {
           model: Assignment,
           include: [
             {
+              model: Task,
+              attributes: [],
+            },
+            {
               model: User,
               as: 'users',
-              attributes: ['name'],
+              attributes: [],
+            },
+          ],
+          where: {
+            user_id: req.userId,
+          },
+          attributes: [],
+        },
+      ],
+      attributes: [
+        'id',
+        'name',
+        'description',
+        [
+          Sequelize.fn('sum', Sequelize.col('Assignments->Tasks.time')),
+          'workedTime',
+        ],
+        [
+          Sequelize.fn('count', Sequelize.col('Assignments->users.id')),
+          'users',
+        ],
+      ],
+      group: [
+        'Project.id',
+        'Project.name',
+        'Project.description',
+        'Assignments.id',
+      ],
+    });
+
+    return res.json(projects);
+  }
+
+  async indexSpecific(req, res) {
+    const projects = await Project.findByPk(req.params.projectId, {
+      include: [
+        {
+          model: Assignment,
+          include: [
+            {
+              model: User,
+              as: 'users',
+              attributes: ['id', 'name', 'email'],
             },
             {
               model: Role,
               as: 'roles',
-              attributes: ['name'],
+              attributes: ['id', 'name'],
+            },
+            {
+              model: Task,
+              attributes: ['id', 'description', 'date', 'time'],
             },
           ],
           attributes: ['id'],
-          where: {
-            user_id: req.userId,
-          },
         },
       ],
-      attributes: ['name', 'description'],
+      attributes: ['id', 'name', 'description'],
     });
 
     return res.json(projects);
@@ -96,6 +145,7 @@ class ProjectController {
           model: Assignment,
           where: {
             user_id: req.userId,
+            role_id: 1,
           },
         },
       ],
@@ -103,7 +153,7 @@ class ProjectController {
 
     if (!oldProject) {
       return res.status(401).json({
-        error: 'Você não pode excluir esse projeto',
+        error: 'Você não pode editar esse projeto, somente um administrador!',
       });
     }
 
@@ -144,6 +194,7 @@ class ProjectController {
           model: Assignment,
           where: {
             user_id: req.userId,
+            role_id: 1,
           },
         },
       ],
@@ -151,7 +202,7 @@ class ProjectController {
 
     if (!project) {
       return res.status(401).json({
-        error: 'Você não pode excluir esse projeto',
+        error: 'Você não pode excluir esse projeto, somente um administrador!',
       });
     }
 

@@ -5,6 +5,7 @@ import SessionController from './app/controllers/SessionController';
 import ProjectController from './app/controllers/ProjectController';
 import TaskController from './app/controllers/TaskController';
 import AssignController from './app/controllers/AssignController';
+import RoleController from './app/controllers/RoleController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -18,6 +19,7 @@ routes.use(authMiddleware);
 routes.put('/users', UserController.update);
 
 routes.get('/projects', ProjectController.index);
+routes.get('/projects/:projectId', ProjectController.indexSpecific);
 routes.post('/projects', ProjectController.store);
 routes.put('/projects/:projectId', ProjectController.update);
 routes.delete('/projects/:projectId', ProjectController.delete);
@@ -34,5 +36,8 @@ routes.get('/tasks', TaskController.index);
 routes.post('/projects/:projectId/tasks', TaskController.store);
 routes.put('/tasks/:taskId', TaskController.update);
 routes.delete('/tasks/:taskId', TaskController.delete);
+
+routes.get('/roles', RoleController.index);
+routes.get('/users', UserController.index);
 
 export default routes;
