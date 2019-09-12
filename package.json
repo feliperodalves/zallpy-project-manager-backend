@@ -6,7 +6,8 @@
   "author": "Felipe Alves <felipe.rod.alves@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "migrate-seed": "sequelize db:migrate && sequelize db:seed:all"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
